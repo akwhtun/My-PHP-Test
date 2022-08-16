@@ -1,16 +1,20 @@
 {
     "name": "lenovo/php_test",
-    "autoload": {      
-        "psr-4": {
-                "Libs\\": "classes/Libs/",
-                "Helpers\\": "classes/Helpers/"
-        }
-    },
     "authors": [
         {
             "name": "Aung Kyaw Wai Htun",
             "email": "akwhtun@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "fakerphp/faker": "^1.20"
+    },
+    "autoload": {
+        "psr-4": 
+        {
+            "Libs\\": "classes/Libs/",
+            "Helpers\\": "classes/Helpers/"
+        }
+ }
+
 }
