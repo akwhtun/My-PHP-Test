@@ -37,4 +37,20 @@ class UsersTable
             return $e->getMessage();
         }
     }
+
+    public function checkAuthUser($email)
+    {
+        try {
+            $query = "SELECT users.*, roles.name AS role, roles.value FROM users LEFT JOIN roles ON users.role_id = roles.id WHERE users.email = :email";
+
+            $statement = $this->db->prepare($query);
+            $statement->execute([
+                ':email' => $email
+            ]);
+            $user = $statement->fetch();
+            return $user ?? false;
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
 }
