@@ -71,4 +71,35 @@ class UsersTable
             return $e->getMessage();
         }
     }
+
+    public function uploadProfile($id, $name)
+    {
+        try {
+            $statement = $this->db->prepare(
+                "UPDATE users SET profile = :name WHERE id = :id"
+            );
+            $statement->execute([
+                ':name' => $name,
+                ':id' => $id
+            ]);
+            return $statement->rowCount();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    public function uploadCoverPhoto($id, $name)
+    {
+        try {
+            $statement = $this->db->prepare(
+                "UPDATE users SET cover = :name WHERE id = :id"
+            );
+            $statement->execute([
+                ':name' => $name,
+                ':id' => $id
+            ]);
+            return $statement->rowCount();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
 }
