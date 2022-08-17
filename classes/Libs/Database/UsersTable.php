@@ -16,7 +16,7 @@ class UsersTable
     {
         try {
 
-            $query = "SELECT users.*, roles.name AS role, roles.value FROM users LEFT JOIN roles ON users.role_id = role.id";
+            $query = "SELECT users.*, roles.name AS role, roles.value FROM users LEFT JOIN roles ON users.role_id = roles.id";
             $statement = $this->db->query($query);
             return $statement->fetchAll();
         } catch (PDOException $e) {
@@ -95,6 +95,65 @@ class UsersTable
             );
             $statement->execute([
                 ':name' => $name,
+                ':id' => $id
+            ]);
+            return $statement->rowCount();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function changeRole($id, $role)
+    {
+        try {
+            $query = "UPDATE users SET role_id = :role WHERE id = :id";
+            $statement = $this->db->prepare($query);
+            $statement->execute([
+                ':role' => $role,
+                ':id' => $id
+            ]);
+            return $statement->rowCount();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function doSuspend($id)
+    {
+        try {
+            $statement = $this->db->prepare(
+                "UPDATE users SET suspended = 1 WHERE id = :id"
+            );
+            $statement->execute([
+                ':id' => $id
+            ]);
+            return $statement->rowCount();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function doUnsuspend($id)
+    {
+        try {
+            $statement = $this->db->prepare(
+                "UPDATE users SET suspended = 0 WHERE id = :id"
+            );
+            $statement->execute([
+                ':id' => $id
+            ]);
+            return $statement->rowCount();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    public function deleteUser($id)
+    {
+        try {
+            $statement = $this->db->prepare(
+                "DELETE FROM users WHERE id = :id"
+            );
+            $statement->execute([
                 ':id' => $id
             ]);
             return $statement->rowCount();

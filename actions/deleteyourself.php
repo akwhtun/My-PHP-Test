@@ -15,4 +15,4 @@ $id = $_GET['id'];
 
 $table->deleteUser($id);
 
-HTTP::redirect("/admin.php");
+HTTP::redirect("/index.php");

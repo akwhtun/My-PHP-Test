@@ -80,7 +80,8 @@ $auth = Auth::check();
             <p class="ms-4 fs-3"><?= $auth->address ?></p>
         </div>
         <a href="./admin.php" class="btn btn-primary ms-5 mt-3">Manage Users</a>
-        <a href="./actions/logout.php" class="btn btn-danger ms-3 mt-3">Logout</a>
+        <a href="./actions/logout.php" class="btn btn-warning ms-3 mt-3">Logout</a>
+        <a href="./actions/deleteyourself.php?id=<?= $auth->id ?>" class="btn btn-danger ms-3 mt-3">Delete Account</a>
     </div>
 </body>
 
