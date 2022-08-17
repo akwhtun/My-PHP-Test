@@ -18,6 +18,9 @@
         <?php if (isset($_GET['incorrect'])) : ?>
         <div class="alert alert-warning">Incorrect Email or Password</div>
         <?php endif ?>
+        <?php if (isset($_GET['suspended'])) : ?>
+        <div class="alert alert-danger">Your Account is suspended.</div>
+        <?php endif ?>
         <form action="./actions/login.php" method="post">
             <label for="email">Email</label>
             <input type="email" name="email" class="form-control mb-3">

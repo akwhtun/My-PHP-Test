@@ -13,6 +13,10 @@ $table = new UsersTable(new MySQL());
 $authUser = $table->checkAuthUser($email);
 
 if (password_verify($password, $authUser->password)) {
+    $suspendUser = $table->suspended($authUser->id);
+    if ($suspendUser) {
+        HTTP::redirect('/index.php', 'suspended=true');
+    }
     $_SESSION['user'] = $authUser;
     HTTP::redirect("/profile.php");
 } else {

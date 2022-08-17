@@ -49,8 +49,26 @@ class UsersTable
             ]);
             $user = $statement->fetch();
             return $user ?? false;
-        } catch (\Throwable $th) {
-            //throw $th;
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function suspended($id)
+    {
+        try {
+            $statement = $this->db->prepare(
+                "SELECT * FROM users WHERE id = :id AND suspended = 1"
+            );
+
+            $statement->execute([
+                ':id' => $id
+            ]);
+
+            $suspend = $statement->fetch();
+            return $suspend ?? false;
+        } catch (PDOException $e) {
+            return $e->getMessage();
         }
     }
 }
